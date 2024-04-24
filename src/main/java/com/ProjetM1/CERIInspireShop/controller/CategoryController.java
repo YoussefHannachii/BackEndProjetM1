@@ -31,6 +31,4 @@ public class CategoryController {
         List<ParentCategoryDto> subCategories = categoryService.getSubCategoriesByCategoryId(categoryId);
         return ResponseEntity.ok(subCategories);
     }
-
-
 }
