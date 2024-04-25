@@ -41,7 +41,9 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        http.csrf(AbstractHttpConfigurer::disable)
+        http
+                .cors(AbstractHttpConfigurer::disable)
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeRequests()
                 .requestMatchers("/publicApi/**").permitAll()
                 .requestMatchers("/api/testAdminJwt/**").hasRole("ADMIN")

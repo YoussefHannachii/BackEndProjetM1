@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.SecureRandom;
 import java.util.Base64;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/publicApi/auth")
 public class LoginController {
