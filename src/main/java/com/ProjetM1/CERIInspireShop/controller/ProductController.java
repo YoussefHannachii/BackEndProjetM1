@@ -1,6 +1,7 @@
 package com.ProjetM1.CERIInspireShop.controller;
 
 import com.ProjetM1.CERIInspireShop.dto.ProductDto;
+import com.ProjetM1.CERIInspireShop.dto.ProductWithImageDto;
 import com.ProjetM1.CERIInspireShop.model.Category;
 import com.ProjetM1.CERIInspireShop.model.Product;
 import com.ProjetM1.CERIInspireShop.service.CategoryService;
@@ -21,14 +22,21 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("")
-    public ResponseEntity<List<ProductDto>> getAllProducts() {
-        List<ProductDto> products = productService.getAllProducts();
+    public ResponseEntity<List<ProductWithImageDto>> getAllProducts() {
+        List<ProductWithImageDto> products = productService.getAllProducts();
         return ResponseEntity.ok(products);
     }
 
     @GetMapping("/categoryProduct/{categoryId}")
-    public ResponseEntity<List<ProductDto>> getSubCategoriesOfCategory(@PathVariable Long categoryId) {
-        List<ProductDto> categoryProduct = productService.getProductOfCategoryById(categoryId);
+    public ResponseEntity<List<ProductWithImageDto>> getSubCategoriesOfCategory(@PathVariable Long categoryId) {
+        List<ProductWithImageDto> categoryProduct = productService.getProductOfCategoryById(categoryId);
         return ResponseEntity.ok(categoryProduct);
     }
+
+    @GetMapping("/product/{productId}")
+    public ResponseEntity<ProductWithImageDto> getProductById(@PathVariable Long productId) {
+        ProductWithImageDto productWithImageDto = productService.getProductWithImageById(productId);
+        return ResponseEntity.ok(productWithImageDto);
+    }
 }
+
