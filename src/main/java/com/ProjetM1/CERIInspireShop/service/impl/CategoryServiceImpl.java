@@ -18,7 +18,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<ParentCategoryDto> getParentCategories() {
-        List<Category> categories = categoryRepository.findAll();
+        List<Category> categories = categoryRepository.findCategoriesWithNullParent();
         return categories.stream()
                 .map(this::mapCategoryToDto)
                 .collect(Collectors.toList());
