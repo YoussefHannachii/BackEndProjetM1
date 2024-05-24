@@ -16,6 +16,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
@@ -44,12 +46,31 @@ public class WebSecurityConfig {
         http
                 .cors(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeRequests()
-                .requestMatchers("/publicApi/**").permitAll()
-                .requestMatchers("/api/testAdminJwt/**").hasRole("ADMIN")
-                .requestMatchers("/api/testUserJwt/**").hasRole("USER")
-                .anyRequest().authenticated()
-                .and().sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(matcherRegistry -> matcherRegistry
+                        .requestMatchers("/publicApi/**").permitAll()
+                        .requestMatchers(
+                                antMatcher("/"),
+                                antMatcher("/login"),
+                                antMatcher("/signin"),
+                                antMatcher("/accueil"),
+                                antMatcher("/index.html"),
+                                antMatcher("/static/**"),
+                                antMatcher("/**/*.css"),
+                                antMatcher("/**/*.js"),
+                                antMatcher("/**/*.png"),
+                                antMatcher("/**/*.jpg"),
+                                antMatcher("/**/*.jpeg"),
+                                antMatcher("/**/*.gif"),
+                                antMatcher("/**/*.svg"),
+                                antMatcher("/**/*.ico"),
+                                antMatcher("/**/*.woff2"),
+                                antMatcher("/**/*.woff"),
+                                antMatcher("/**/*.ttf"),
+                                antMatcher("/**/*.eot")).permitAll()
+                        .requestMatchers("/api/testAdminJwt/**").hasRole("ADMIN")
+                        .requestMatchers("/api/testUserJwt/**").hasRole("USER")
+                        .anyRequest().authenticated())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtTokenFilter,UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
