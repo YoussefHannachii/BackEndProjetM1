@@ -9,6 +9,5 @@ import java.util.List;
 public interface ProductService {
     List<ProductWithImageDto> getAllProducts();
     List<ProductWithImageDto> getProductOfCategoryById(Long categoryId);
-
     ProductWithImageDto getProductWithImageById(Long productId);
 }
