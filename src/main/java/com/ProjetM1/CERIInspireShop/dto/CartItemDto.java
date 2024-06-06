@@ -2,10 +2,14 @@ package com.ProjetM1.CERIInspireShop.dto;
 
 import com.ProjetM1.CERIInspireShop.model.CartItem;
 import com.ProjetM1.CERIInspireShop.model.Product;
+import com.ProjetM1.CERIInspireShop.model.ProductImage;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Setter
 @Getter
@@ -18,6 +22,8 @@ public class CartItemDto {
     private String name;
     private String description;
     private double price;
+    private int productQuantity;
+    private List<ImageDto> images = new ArrayList<>();
 
     public CartItemDto(CartItem cartItem){
         Product product = cartItem.getProduct();
@@ -27,5 +33,9 @@ public class CartItemDto {
         this.name = product.getName();
         this.description = product.getDescription();
         this.price = product.getPrice()*cartQuantity;
+        this.productQuantity = product.getQuantity();
+        for (ProductImage image : product.getImages()) {
+            this.images.add(new ImageDto(image));
+        }
     }
 }
