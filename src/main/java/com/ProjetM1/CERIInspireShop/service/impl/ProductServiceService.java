@@ -39,6 +39,12 @@ public class ProductServiceService implements ProductService {
         return new ProductWithImageDto(product);
     }
 
+    @Override
+    public Product getProductById(Long productId) {
+        return productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+    }
+
     private ProductDto mapToProductDTO(Product product) {
         return new ProductDto(product);
     }

@@ -24,6 +24,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    public void updateActiveFieldOfUser(User updatedUser) {
+        userRepository.save(updatedUser);
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = findUserByEmail(email);
         List<String> roles = new ArrayList<>();

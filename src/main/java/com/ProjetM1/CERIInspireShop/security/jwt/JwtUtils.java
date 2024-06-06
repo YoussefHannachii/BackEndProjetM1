@@ -29,6 +29,8 @@ public class JwtUtils {
 
         Claims claims = Jwts.claims().setSubject(user.getEmail());
         claims.put("role", user.getRole());
+        claims.put("userId",user.getUserId());
+        claims.put("cartId",user.getCart().getId());
 
         return Jwts.builder()
                 .setClaims(claims)

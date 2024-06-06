@@ -2,6 +2,7 @@ package com.ProjetM1.CERIInspireShop.controller;
 
 import com.ProjetM1.CERIInspireShop.dto.JwtResponse;
 import com.ProjetM1.CERIInspireShop.dto.LoginRequest;
+import com.ProjetM1.CERIInspireShop.dto.LogoutRequest;
 import com.ProjetM1.CERIInspireShop.model.User;
 import com.ProjetM1.CERIInspireShop.security.jwt.JwtUtils;
 import com.ProjetM1.CERIInspireShop.security.utils.BCrypter;
@@ -47,6 +48,10 @@ public class LoginController {
 
             User user = userService.findUserByEmail(loginRequest.getEmail());
 
+            user.setActive(true);
+
+            userService.updateActiveFieldOfUser(user);
+
             String jwt = jwtUtils.generateJwtToken(user);
 
             return ResponseEntity.ok(new JwtResponse(jwt));
@@ -56,6 +61,7 @@ public class LoginController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Mot de passe ou email incorrect");
         }
     }
+
 
     @GetMapping("/hasher/{textToHash}")
     public ResponseEntity<?> hashText(@PathVariable String textToHash) {
