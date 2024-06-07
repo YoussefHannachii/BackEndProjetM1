@@ -17,22 +17,22 @@ import java.util.List;
 @AllArgsConstructor
 public class CartItemDto {
     private Long cartItemId;
-    private int cartQuantity;
+    private int quantity;
     private Long productId;
     private String name;
     private String description;
-    private double price;
+    //private double price;
     private int productQuantity;
     private List<ImageDto> images = new ArrayList<>();
 
     public CartItemDto(CartItem cartItem){
         Product product = cartItem.getProduct();
         cartItemId=cartItem.getId();
-        cartQuantity=cartItem.getQuantity();
+        quantity=cartItem.getQuantity();
         this.productId = product.getProductId();
         this.name = product.getName();
         this.description = product.getDescription();
-        this.price = product.getPrice()*cartQuantity;
+        //this.price = product.getPrice()*cartQuantity;
         this.productQuantity = product.getQuantity();
         for (ProductImage image : product.getImages()) {
             this.images.add(new ImageDto(image));

@@ -5,6 +5,7 @@ import com.ProjetM1.CERIInspireShop.dto.ProductWithImageDto;
 import com.ProjetM1.CERIInspireShop.service.CartItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,4 +24,5 @@ public class CartItemController {
                 cartItemRequest.getCartId(),cartItemRequest.getProductId());
         return ResponseEntity.ok("Cart Item added successfully");
     }
+
 }

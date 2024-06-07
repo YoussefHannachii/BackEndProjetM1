@@ -16,7 +16,6 @@ public class CartItemServiceImpl implements CartItemService {
     @Autowired
     CartItemRepository cartItemRepository;
 
-    @Autowired
     CartService cartService;
 
     @Autowired
@@ -28,5 +27,16 @@ public class CartItemServiceImpl implements CartItemService {
                 productService.getProductById(productId),
                 cartService.findCartById(cartId)) ;
         cartItemRepository.save(cartItem);
+    }
+
+    @Override
+    public CartItem getCartItemById(Long cartItemId) {
+        return cartItemRepository.findById(cartItemId).orElseThrow(()-> new RuntimeException("CartItem not found"));
+    }
+
+    @Override
+    public void deleteCartItemById(Long cartItemId) {
+        CartItem cartItem = getCartItemById(cartItemId);
+        cartItemRepository.deleteById(cartItemId);
     }
 }
