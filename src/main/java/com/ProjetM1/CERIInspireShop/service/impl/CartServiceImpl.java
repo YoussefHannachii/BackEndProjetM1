@@ -36,18 +36,9 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void deleteCartItemFromCart(Long cartId,Long cartItemId) {
+    public void deleteCartItemFromCart(Long cartId,Long productId) {
         Cart cart = findCartById(cartId);
-        CartItem cartItem = cartItemService.getCartItemById(cartItemId);
-
-        if (cart.getCartItems().contains(cartItem)) {
-            //Not using the cart update , need to be studied
-            cart.getCartItems().remove(cartItem);
-            cartItemService.deleteCartItemById(cartItemId);
-        } else {
-            throw new RuntimeException("CartItem does not belong to the Cart");
-        }
-
+        cartItemService.deleteCartItemsByProductId(cartId,productId);
     }
 
     public CartItemDto mapCartItemToCartItemDto(CartItem cartItem){

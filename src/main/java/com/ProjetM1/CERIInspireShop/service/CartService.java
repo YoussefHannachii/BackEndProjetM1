@@ -9,5 +9,5 @@ import java.util.List;
 public interface CartService {
     List<CartItemDto> getAllCartItems(Long cartId);
     Cart findCartById(Long cartId);
-    void deleteCartItemFromCart(Long cartId,Long cartItemId);
+    void deleteCartItemFromCart(Long cartId,Long productId);
 }

@@ -16,16 +16,14 @@ public class CartItemServiceImpl implements CartItemService {
     @Autowired
     CartItemRepository cartItemRepository;
 
-    CartService cartService;
-
     @Autowired
     ProductService productService;
 
     @Override
-    public void addCartItemToCart(int quantity,Long cartId, Long productId) {
+    public void addCartItemToCart(int quantity, Long cartId, Long productId, CartService cartService) {
         CartItem cartItem = new CartItem(quantity,
                 productService.getProductById(productId),
-                cartService.findCartById(cartId)) ;
+                cartService.findCartById(cartId));
         cartItemRepository.save(cartItem);
     }
 
@@ -36,7 +34,13 @@ public class CartItemServiceImpl implements CartItemService {
 
     @Override
     public void deleteCartItemById(Long cartItemId) {
-        CartItem cartItem = getCartItemById(cartItemId);
         cartItemRepository.deleteById(cartItemId);
     }
+
+    @Override
+    public void deleteCartItemsByProductId(Long cartId,Long productId) {
+        cartItemRepository.deleteByCartIdAndProductId(cartId,productId);
+    }
+
+
 }
